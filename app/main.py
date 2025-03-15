@@ -1,14 +1,17 @@
-from fastapi import FastAPI
-from app.api.endpoints import portfolio
+from pydantic_settings import BaseSettings
 
-app = FastAPI()
+class Settings(BaseSettings):
+    """Application-wide settings pulled from environment variables or defaults."""
 
-app.include_router(portfolio.router)
+    IBKR_HOST: str = "localhost"
+    IBKR_PORT: int = 5000
+    MODE: str = "paper"           # 'paper' or 'live'
+    AUTH_TOKEN: str = ""          # leave blank for no-auth testing
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the IBKR MCP Server"}
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# Single global instance imported elsewhere
+settings = Settings()
