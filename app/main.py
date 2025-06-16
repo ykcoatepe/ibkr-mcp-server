@@ -1,7 +1,11 @@
+from fastapi import FastAPI
 from pydantic_settings import BaseSettings
 
+from app.api.endpoints import portfolio
+
+
 class Settings(BaseSettings):
-    """Application-wide settings pulled from environment variables or defaults."""
+    """Application-wide settings pulled from environment variables."""
 
     IBKR_HOST: str = "localhost"
     IBKR_PORT: int = 5000
@@ -13,5 +17,13 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
 
 
-# Single global instance imported elsewhere
 settings = Settings()
+app = FastAPI()
+
+# Include routers
+app.include_router(portfolio.router)
+
+
+@app.get("/")
+async def root():
+    return {"status": "ok"}

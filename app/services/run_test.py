@@ -1,5 +1,9 @@
+"""Utility script to manually test the IBKR service."""
+
+__test__ = False  # Prevent pytest from collecting this module
+
 import asyncio
-from ibkr_service import ibkr_service
+from .ibkr_service import ibkr_service
 
 import nest_asyncio
 nest_asyncio.apply()
