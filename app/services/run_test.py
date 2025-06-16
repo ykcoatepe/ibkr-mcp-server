@@ -10,8 +10,8 @@ nest_asyncio.apply()
 
 async def test_portfolio():
     try:
-        ibkr_service.connect()
-        portfolio = ibkr_service.fetch_portfolio_details()
+        await ibkr_service.connect()
+        portfolio = await ibkr_service.fetch_portfolio_details()
         print("Portfolio:", portfolio)
     except Exception as e:
         print("Portfolio fetch failed:", e)
