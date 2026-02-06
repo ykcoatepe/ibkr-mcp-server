@@ -3,3 +3,5 @@ venv/
 *.pyc
 .venv*/
 .pytest_cache/
+.idea/
+.DS_Store
